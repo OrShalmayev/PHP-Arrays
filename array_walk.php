@@ -43,11 +43,45 @@ $peoples = [
 // dd($peoples);
 
 /** Example #2 **/
-function joinName(&$people, $index, $delimiter = ' '){
-    $people['fullname'] = "{$people['first_name']}{$delimiter}{$people['last_name']}";
-    // return $people;
-}
+// function joinName(&$people, $index, $delimiter = ' '){
+//     $people['fullname'] = "{$people['first_name']}{$delimiter}{$people['last_name']}";
+//     // return $people;
+// }
 
-array_walk($peoples, 'joinName', '@');
+// array_walk($peoples, 'joinName', '@');
 
-dd($peoples);
+// dd($peoples);
+
+
+/** Example #3 **/
+
+$payload = [
+    [
+        'id' => '1.5',
+        'body' => 'What a lovely day',
+        'user' => [
+            'id' => '123'
+        ]
+    ],
+    [
+        'id' => '2',
+        'body' => 'What a lovely day',
+        'user' => [
+            'id' => '456'
+        ]
+    ],
+];
+
+array_walk_recursive($payload, function(&$value){
+    if(!is_numeric($value)){
+        return;
+    }
+
+    $value = (float) $value;
+
+    if(floor($value)===$value){
+        $value = (int) $value;
+    }
+});
+
+dd($payload);
